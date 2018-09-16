@@ -1,0 +1,25 @@
+{
+    "name": "kuria/phpunit-extras",
+    "description": "Additional functionality for PHPUnit (such as assertions)",
+    "keywords": ["phpunit", "assert", "assertion", "iterable", "identical", "loose"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "phpunit/phpunit": "^7.3.5",
+        "kuria/iterable": "^1.0"
+    },
+    "require-dev": {
+        "kuria/clock": "^1.0",
+        "kuria/dev-meta": "^0.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kuria\\PhpUnitExtras\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kuria\\PhpUnitExtras\\": "tests"
+        }
+    }
+}
