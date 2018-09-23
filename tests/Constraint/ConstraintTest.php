@@ -33,7 +33,7 @@ abstract class ConstraintTest extends TestCase
         $this->assertSame($expectedResult, $this->createConstraint($otherValue)->evaluate($value, '', true));
     }
 
-    abstract function provideValues(): array;
+    abstract function provideValues();
 
     abstract protected function createConstraint($value): Constraint;
 }

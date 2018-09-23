@@ -6,7 +6,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 class IsLooselyIdenticalTest extends ConstraintTest
 {
-    function provideValues(): array
+    function provideValues()
     {
         $object = new \stdClass();
 

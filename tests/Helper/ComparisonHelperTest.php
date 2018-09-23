@@ -14,7 +14,7 @@ class ComparisonHelperTest extends TestCase
         $this->assertSame($expectedResult, ComparisonHelper::isLooselyIdentical($a, $b));
     }
 
-    function provideValuesToLooselyCompare(): array
+    function provideValuesToLooselyCompare()
     {
         $object = (object) ['foo' => 123];
         $childClassObject = new class extends \stdClass {};

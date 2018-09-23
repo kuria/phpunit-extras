@@ -6,7 +6,7 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 class IsIdenticalIterableTest extends IterableConstraintTest
 {
-    function provideValues(): array
+    function provideValues()
     {
         return [
             // value, otherValue, [expectedResult]
