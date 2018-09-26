@@ -6,6 +6,11 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 class IsIdenticalIterableTest extends IterableConstraintTest
 {
+    protected function createConstraint($value): Constraint
+    {
+        return new IsIdenticalIterable($value);
+    }
+
     function provideValues()
     {
         return [
@@ -13,10 +18,5 @@ class IsIdenticalIterableTest extends IterableConstraintTest
             [[1, 2, 3], new \ArrayObject([1, 2, 3])],
             [[1, 2, 3], new \ArrayObject([1, '2', 3]), false],
         ];
-    }
-
-    protected function createConstraint($value): Constraint
-    {
-        return new IsIdenticalIterable($value);
     }
 }

@@ -11,7 +11,7 @@ class ComparisonHelperTest extends TestCase
      */
     function testShouldLooselyCompare($a, $b, bool $expectedResult)
     {
-        $this->assertSame($expectedResult, ComparisonHelper::isLooselyIdentical($a, $b));
+        $this->assertSame($expectedResult, ComparisonHelper::isLooselyIdentical($a, $b, false));
     }
 
     function provideValuesToLooselyCompare()
@@ -59,6 +59,23 @@ class ComparisonHelperTest extends TestCase
             [$selfReferencingObject, $selfReferencingObject, true],
             [$selfReferencingArray, $selfReferencingArray, true],
             [$selfReferencingObject, $selfReferencingArray, false],
+        ];
+    }
+
+    /**
+     * @dataProvider provideValuesToLooselyCompareWithKeyCanonicalization
+     */
+    function testShouldLooselyCompareWithKeyCanonicalization($a, $b, bool $expectedResult)
+    {
+        $this->assertSame($expectedResult, ComparisonHelper::isLooselyIdentical($a, $b, true));
+    }
+
+    function provideValuesToLooselyCompareWithKeyCanonicalization()
+    {
+        return [
+            // a, b, expectedResult
+            [['foo' => 123, 'bar' => 456], ['bar' => 456, 'foo' => 123], true],
+            [['foo' => 123, 'bar' => 456], ['bar' => 789, 'foo' => 123], false],
         ];
     }
 }

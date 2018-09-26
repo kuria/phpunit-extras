@@ -12,12 +12,16 @@ class IsLooselyIdentical extends Constraint
     /** @var mixed */
     private $value;
 
-    function __construct($value)
+    /** @var bool */
+    private $canonicalizeKeys;
+
+    function __construct($value, bool $canonicalizeKeys)
     {
         parent::__construct();
 
         $this->exporter = new LooseExporter();
         $this->value = $value;
+        $this->canonicalizeKeys = $canonicalizeKeys;
     }
 
     function toString(): string
@@ -49,6 +53,6 @@ class IsLooselyIdentical extends Constraint
 
     protected function matches($other): bool
     {
-        return ComparisonHelper::isLooselyIdentical($this->value, $other);
+        return ComparisonHelper::isLooselyIdentical($this->value, $other, $this->canonicalizeKeys);
     }
 }

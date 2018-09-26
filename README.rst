@@ -43,11 +43,13 @@ This trait exposes additional assertion methods to your test case.
    }
 
 
-``assertLooselyIdentical($expected, $actual)``
-----------------------------------------------
+``assertLooselyIdentical($expected, $actual, $canonicalizeKeys = false)``
+-------------------------------------------------------------------------
 
 Assert that two values have the same type and value, but consider different
 instances of the same class identical as long as they have identical properties.
+
+If ``$canonicalizeKeys = TRUE``, then array key order is ignored.
 
 
 ``assertSameIterable(iterable $expected, $actual)``
@@ -58,12 +60,14 @@ Assert that two iterables contain the same values and types in the same order
 Types are compared the same way as with the ``===`` operator.
 
 
-``assertLooselyIdenticalIterable(iterable $expected, $actual)``
----------------------------------------------------------------
+``assertLooselyIdenticalIterable(iterable $expected, $actual, $canonicalizeKeys = false)``
+------------------------------------------------------------------------------------------
 
 Assert that two iterables contain the same values and types in the same order,
 but consider different instances of the same class identical as long as they
 have identical properties.
+
+If ``$canonicalizeKeys = TRUE``, then array key order is ignored.
 
 
 ``assertEqualIterable(iterable $expected, $actual)``
@@ -74,32 +78,28 @@ Assert that two iterables contain equal values in any order
 Types are compared the same way as with the ``==`` operator.
 
 
-``looselyIdenticalTo($value)``
-------------------------------
+``looselyIdenticalTo($value, $canonicalizeKeys = false)``
+---------------------------------------------------------
 
-Create the ``IsLooselyIdentical`` constraint.
-See `assertLooselyIdentical() <assertLooselyIdentical($expected, $actual)_>`_.
+Create the ``IsLooselyIdentical`` constraint. See ``assertLooselyIdentical()``.
 
 
 ``identicalIterable(iterable $expected)``
 -----------------------------------------
 
-Create the ``IsIdenticalIterable`` constraint.
-See `assertSameIterable() <assertSameIterable(iterable $expected, $actual)_>`_.
+Create the ``IsIdenticalIterable`` constraint. See ``assertSameIterable()``.
 
 
-``looselyIdenticalIterable(iterable $expected)``
-------------------------------------------------
+``looselyIdenticalIterable(iterable $expected, $canonicalizeKeys = false)``
+---------------------------------------------------------------------------
 
-Create the ``IsLooselyIdenticalIterable`` constraint.
-See `assertLooselyIdenticalIterable() <assertLooselyIdenticalIterable(iterable $expected, $actual)_>`_.
+Create the ``IsLooselyIdenticalIterable`` constraint. See ``assertLooselyIdenticalIterable()``.
 
 
 ``equalIterable(iterable $expected)``
 -------------------------------------
 
-Create the ``IsEqualIterable`` constraint.
-See `assertEqualIterable() <assertEqualIterable(iterable $expected, $actual)_>`_.
+Create the ``IsEqualIterable`` constraint. See ``assertEqualIterable()``.
 
 
 ``ClockTrait``

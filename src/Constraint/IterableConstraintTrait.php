@@ -7,11 +7,6 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 
 trait IterableConstraintTrait
 {
-    function __construct(iterable $value)
-    {
-        parent::__construct(IterableHelper::toArray($value));
-    }
-
     function evaluate($other, $description = '', $returnResult = false)
     {
         if (!is_iterable($other)) {

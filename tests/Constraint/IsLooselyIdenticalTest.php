@@ -6,6 +6,11 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 class IsLooselyIdenticalTest extends ConstraintTest
 {
+    protected function createConstraint($value, bool $canonicalizeKeys = false): Constraint
+    {
+        return new IsLooselyIdentical($value, $canonicalizeKeys);
+    }
+
     function provideValues()
     {
         $object = new \stdClass();
@@ -22,8 +27,16 @@ class IsLooselyIdenticalTest extends ConstraintTest
         ];
     }
 
-    protected function createConstraint($value): Constraint
+    function testShouldEvaluateConstraintWithKeyCanonicalization()
     {
-        return new IsLooselyIdentical($value);
+        $this->assertTrue(
+            $this->createConstraint(['foo' => 123, 'bar' => 456], true)
+                ->evaluate(['bar' => 456, 'foo' => 123], '', true)
+        );
+
+        $this->assertFalse(
+            $this->createConstraint(['foo' => 123, 'bar' => 456], true)
+                ->evaluate(['bar' => 789, 'foo' => 123], '', true)
+        );
     }
 }

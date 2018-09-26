@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class ConstraintTest extends TestCase
 {
+    abstract protected function createConstraint($value): Constraint;
+
     /**
      * @dataProvider provideValues
      */
@@ -34,6 +36,4 @@ abstract class ConstraintTest extends TestCase
     }
 
     abstract function provideValues();
-
-    abstract protected function createConstraint($value): Constraint;
 }

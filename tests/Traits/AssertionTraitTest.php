@@ -23,6 +23,14 @@ class AssertionTraitTest extends TestCase
         $this->assertLooselyIdentical((object) ['foo' => 123], (object) ['foo' => '123']);
     }
 
+    function testShouldAssertLooselyIdenticalWithKeyCanonicalization()
+    {
+        $this->assertLooselyIdentical(['foo' => 123, 'bar' => 456], ['bar' => 456, 'foo' => 123], true);
+
+        $this->expectException(ExpectationFailedException::class);
+        $this->assertLooselyIdentical(['foo' => 123, 'bar' => 456], ['bar' => 789, 'foo' => 123], true);
+    }
+
     function testShouldAssertSameIterable()
     {
         $this->assertSameIterable([1, 2, 3], new \ArrayObject([1, 2, 3]));
@@ -41,6 +49,22 @@ class AssertionTraitTest extends TestCase
         $this->assertLooselyIdenticalIterable(
             [(object) ['foo' => 123]],
             [(object) ['foo' => '123']]
+        );
+    }
+
+    function testShouldAssertLooselyIdenticalIterableWithKeyCanonicalization()
+    {
+        $this->assertLooselyIdenticalIterable(
+            ['foo' => 123, 'bar' => 456],
+            new \ArrayObject(['bar' => 456, 'foo' => 123]),
+            true
+        );
+
+        $this->expectException(ExpectationFailedException::class);
+        $this->assertLooselyIdenticalIterable(
+            ['foo' => 123, 'bar' => 456],
+            new \ArrayObject(['bar' => 789, 'foo' => 123]),
+            true
         );
     }
 

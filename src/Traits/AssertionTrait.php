@@ -18,10 +18,12 @@ trait AssertionTrait
     /**
      * Assert that two values have the same type and value, but consider different instances
      * of the same class identical as long as they have identical properties
+     *
+     * If $canonicalizeKeys = TRUE, then array key order is ignored.
      */
-    static function assertLooselyIdentical($expected, $actual, string $message = ''): void
+    static function assertLooselyIdentical($expected, $actual, bool $canonicalizeKeys = false, string $message = ''): void
     {
-        static::assertThat($actual, static::looselyIdenticalTo($expected), $message);
+        static::assertThat($actual, static::looselyIdenticalTo($expected, $canonicalizeKeys), $message);
     }
 
     /**
@@ -37,10 +39,12 @@ trait AssertionTrait
     /**
      * Assert that two iterables contain the same values and types in the same order, but consider
      * different instances of the same class identical as long as they have identical properties
+     *
+     * If $canonicalizeKeys = TRUE, then array key order is ignored.
      */
-    static function assertLooselyIdenticalIterable(iterable $expected, $actual, string $message = '')
+    static function assertLooselyIdenticalIterable(iterable $expected, $actual, bool $canonicalizeKeys = false, string $message = '')
     {
-        static::assertThat($actual, static::looselyIdenticalIterable($expected), $message);
+        static::assertThat($actual, static::looselyIdenticalIterable($expected, $canonicalizeKeys), $message);
     }
 
     /**
@@ -53,9 +57,9 @@ trait AssertionTrait
         static::assertThat($actual, static::equalIterable($expected), $message);
     }
 
-    static function looselyIdenticalTo($value): Constraint\IsLooselyIdentical
+    static function looselyIdenticalTo($value, bool $canonicalizeKeys = false): Constraint\IsLooselyIdentical
     {
-        return new Constraint\IsLooselyIdentical($value);
+        return new Constraint\IsLooselyIdentical($value, $canonicalizeKeys);
     }
 
     static function identicalIterable(iterable $expected): Constraint\IsIdenticalIterable
@@ -63,9 +67,9 @@ trait AssertionTrait
         return new Constraint\IsIdenticalIterable($expected);
     }
 
-    static function looselyIdenticalIterable(iterable $expected): Constraint\IsLooselyIdenticalIterable
+    static function looselyIdenticalIterable(iterable $expected, bool $canonicalizeKeys = false): Constraint\IsLooselyIdenticalIterable
     {
-        return new Constraint\IsLooselyIdenticalIterable($expected);
+        return new Constraint\IsLooselyIdenticalIterable($expected, $canonicalizeKeys);
     }
 
     static function equalIterable(iterable $expected): Constraint\IsEqualIterable

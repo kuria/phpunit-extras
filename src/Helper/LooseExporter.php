@@ -4,6 +4,9 @@ namespace Kuria\PhpUnitExtras\Helper;
 
 use SebastianBergmann\Exporter\Exporter;
 
+/**
+ * @internal
+ */
 class LooseExporter extends Exporter
 {
     protected function recursiveExport(&$value, $indentation, $processed = null)
