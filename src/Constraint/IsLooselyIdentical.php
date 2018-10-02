@@ -19,7 +19,7 @@ class IsLooselyIdentical extends Constraint
     {
         parent::__construct();
 
-        $this->exporter = new LooseExporter();
+        $this->exporter = new LooseExporter($canonicalizeKeys);
         $this->value = $value;
         $this->canonicalizeKeys = $canonicalizeKeys;
     }

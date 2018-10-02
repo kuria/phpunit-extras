@@ -9,8 +9,21 @@ use SebastianBergmann\Exporter\Exporter;
  */
 class LooseExporter extends Exporter
 {
+    /** @var bool */
+    private $canonicalizeKeys;
+
+    function __construct(bool $canonicalizeKeys)
+    {
+        $this->canonicalizeKeys = $canonicalizeKeys;
+    }
+
     protected function recursiveExport(&$value, $indentation, $processed = null)
     {
+        if ($this->canonicalizeKeys && is_array($value)) {
+            // if keys are being canonicalized, sort array keys to produce more readable diffs
+            ksort($value);
+        }
+
         if (is_object($value)) {
             // strip hashes from object exports so that they don't show up in the diffs
             return preg_replace(

@@ -1,6 +1,12 @@
 Changelog
 #########
 
+2.0.1
+*****
+
+- sort array keys in ``LooseExporter`` if key canonicalization is enabled
+
+
 2.0.0
 *****
 
