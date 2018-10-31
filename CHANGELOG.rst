@@ -1,6 +1,12 @@
 Changelog
 #########
 
+2.0.2
+*****
+
+- sort object properties in ``LooseExporter`` if key canonicalization is enabled
+
+
 2.0.1
 *****
 

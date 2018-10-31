@@ -17,6 +17,18 @@ class LooseExporter extends Exporter
         $this->canonicalizeKeys = $canonicalizeKeys;
     }
 
+    function toArray($value)
+    {
+        $array = parent::toArray($value);
+
+        if ($this->canonicalizeKeys && is_object($value)) {
+            // if keys are being canonicalized, sort array keys to produce more readable diffs
+            ksort($array);
+        }
+
+        return $array;
+    }
+
     protected function recursiveExport(&$value, $indentation, $processed = null)
     {
         if ($this->canonicalizeKeys && is_array($value)) {

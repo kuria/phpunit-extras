@@ -21,7 +21,7 @@ class LooseExporterTest extends TestCase
     /**
      * @dataProvider provideValuesForCanonicalizationTest
      */
-    function testShouldCanonicalizeArrayKeys($value, bool $canonicalizeKeys, string $expectedOutputRegex)
+    function testShouldCanonicalize($value, bool $canonicalizeKeys, string $expectedOutputRegex)
     {
         $exporter = new LooseExporter($canonicalizeKeys);
 
@@ -32,13 +32,26 @@ class LooseExporterTest extends TestCase
     {
         return [
             // value, canonicalizeKeys, expectedOutputRegex
-            [
+            'array without canonicalization' => [
                 ['z' => 'foo', 'y' => 'bar', 'x' => [2 => 'a', 1 => 'b', 0 => 'c']],
                 false,
                 "{'z'.*'y'.*'x'.*2.*1.*0}s",
             ],
-            [
+
+            'array with canonicalization' =>[
                 ['z' => 'foo', 'y' => 'bar', 'x' => [2 => 'a', 1 => 'b', 0 => 'c']],
+                true,
+                "{'x'.*0.*1.*2.*'y'.*'z'}s",
+            ],
+
+            'object without canonicalization' => [
+                (object) ['z' => 'foo', 'y' => 'bar', 'x' => (object) [2 => 'a', 1 => 'b', 0 => 'c']],
+                false,
+                "{'z'.*'y'.*'x'.*2.*1.*0}s",
+            ],
+
+            'object with canonicalization' => [
+                (object) ['z' => 'foo', 'y' => 'bar', 'x' => (object) [2 => 'a', 1 => 'b', 0 => 'c']],
                 true,
                 "{'x'.*0.*1.*2.*'y'.*'z'}s",
             ],
