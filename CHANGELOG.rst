@@ -1,6 +1,12 @@
 Changelog
 #########
 
+2.0.3
+*****
+
+- remove array IDs in ``LooseExporter``
+
+
 2.0.2
 *****
 

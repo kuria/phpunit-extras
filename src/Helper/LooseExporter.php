@@ -45,6 +45,15 @@ class LooseExporter extends Exporter
             );
         }
 
+        if (is_array($value)) {
+            // strip IDs from array exports so that they don't show up in the diffs
+            return preg_replace(
+                '{Array &[^ ]*}A',
+                'Array',
+                parent::recursiveExport($value, $indentation, $processed)
+            );
+        }
+
         return parent::recursiveExport($value, $indentation, $processed);
     }
 }

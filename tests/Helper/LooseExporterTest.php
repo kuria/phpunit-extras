@@ -18,6 +18,15 @@ class LooseExporterTest extends TestCase
         );
     }
 
+    function testShouldExportArraysWithoutIds()
+    {
+        $exporter = new LooseExporter(false);
+
+        $array = [1, 2, 3];
+
+        $this->assertNotContains('&', $exporter->export([&$array, &$array]));
+    }
+
     /**
      * @dataProvider provideValuesForCanonicalizationTest
      */
