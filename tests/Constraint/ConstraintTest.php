@@ -18,6 +18,7 @@ abstract class ConstraintTest extends TestCase
         $constraint = $this->createConstraint($value);
 
         $this->assertSame($expectedResult, $constraint->evaluate($otherValue, '', true));
+        $this->assertNotEmpty($constraint->toString());
 
         if ($expectedResult) {
             $constraint->evaluate($otherValue);

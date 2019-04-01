@@ -1,6 +1,12 @@
 Changelog
 #########
 
+3.0.0
+*****
+
+- PHPUnit 8 support
+
+
 2.0.3
 *****
 

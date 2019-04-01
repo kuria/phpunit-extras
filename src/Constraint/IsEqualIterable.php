@@ -3,14 +3,34 @@
 namespace Kuria\PhpUnitExtras\Constraint;
 
 use Kuria\Iterable\IterableHelper;
+use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-class IsEqualIterable extends IsEqual
+class IsEqualIterable extends Constraint
 {
-    use IterableConstraintTrait;
+    /** @var IsEqual */
+    private $inner;
 
     function __construct(iterable $value)
     {
-        parent::__construct(IterableHelper::toArray($value), 0.0, 10, true);
+        $this->inner = new IsEqual(IterableHelper::toArray($value));
+    }
+
+    function toString(): string
+    {
+        return $this->inner->toString();
+    }
+
+    function evaluate($other, string $description = '', bool $returnResult = false)
+    {
+        if (!is_iterable($other)) {
+            if ($returnResult) {
+                return false;
+            }
+
+            $this->fail($other, $description);
+        }
+
+        return $this->inner->evaluate(IterableHelper::toArray($other), $description, $returnResult);
     }
 }

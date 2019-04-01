@@ -24,7 +24,7 @@ class LooseExporterTest extends TestCase
 
         $array = [1, 2, 3];
 
-        $this->assertNotContains('&', $exporter->export([&$array, &$array]));
+        $this->assertStringNotContainsString('&', $exporter->export([&$array, &$array]));
     }
 
     /**

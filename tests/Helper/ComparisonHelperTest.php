@@ -20,14 +20,6 @@ class ComparisonHelperTest extends TestCase
         $childClassObject = new class extends \stdClass {};
         $childClassObject->foo = 123;
 
-        $selfReferencingArray = [];
-        $selfReferencingArray['foo']['bar']['baz'] = &$selfReferencingArray;
-
-        $selfReferencingObject = new \stdClass();
-        $selfReferencingObject->foo = new \stdClass();
-        $selfReferencingObject->foo->bar = new \stdClass();
-        $selfReferencingObject->foo->bar->baz = $selfReferencingObject;
-
         return [
             // a, b, expectedResult
             [true, true, true],
@@ -56,10 +48,22 @@ class ComparisonHelperTest extends TestCase
             [$object, clone $object, true],
             [$object, (object) ['foo' => '123'], false],
             [$object, $childClassObject, false],
-            [$selfReferencingObject, $selfReferencingObject, true],
-            [$selfReferencingArray, $selfReferencingArray, true],
-            [$selfReferencingObject, $selfReferencingArray, false],
         ];
+    }
+
+    function testShouldLooselyCompareRecursiveStructures()
+    {
+        $selfReferencingArray = [];
+        $selfReferencingArray['foo']['bar']['baz'] = &$selfReferencingArray;
+
+        $selfReferencingObject = new \stdClass();
+        $selfReferencingObject->foo = new \stdClass();
+        $selfReferencingObject->foo->bar = new \stdClass();
+        $selfReferencingObject->foo->bar->baz = $selfReferencingObject;
+
+        $this->assertTrue(ComparisonHelper::isLooselyIdentical($selfReferencingArray, $selfReferencingArray, false));
+        $this->assertTrue(ComparisonHelper::isLooselyIdentical($selfReferencingObject, $selfReferencingObject, false));
+        $this->assertFalse(ComparisonHelper::isLooselyIdentical($selfReferencingObject, $selfReferencingArray, false));
     }
 
     /**
